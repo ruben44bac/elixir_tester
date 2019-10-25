@@ -271,7 +271,7 @@ defmodule GuiltySparkWeb.NotificationLiveView do
           assigns.token,
           assigns.role_id,
           assigns.user_id,
-          "notification")
+          assigns.path)
     case result == %{} do
       true -> %{boton_nuevo: false}
       false -> permission_result(result["data"]["permissions"], %{})

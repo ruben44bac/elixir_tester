@@ -12,7 +12,9 @@ defmodule GuiltySparkWeb.NotificationController do
   alias Phoenix.LiveView
 
   def index(conn, _params) do
-    LiveView.Controller.live_render(conn, GuiltySparkWeb.NotificationLiveView, session: PermissionHandler.get_session(conn))
+    LiveView.Controller.live_render(conn, GuiltySparkWeb.NotificationLiveView,
+    session: PermissionHandler.get_session(conn)
+      |> Map.merge(%{path: conn.request_path}))
   end
 
   def new_generic(conn, attrs) do
