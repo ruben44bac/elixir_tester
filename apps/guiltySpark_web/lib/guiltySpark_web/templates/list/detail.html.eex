@@ -1,0 +1,76 @@
+<div class="w-3/12 px-5 border-r-2 border-gray-300 min-h-screen" >
+    
+
+    <%= if @delete_message do %>   
+        <div class="w-full shadow-lg text-gray-700 p-2 rounded-lg box">
+            <div class="bg-white p-4 rounded-lg">
+                <label class="block text-sm mb-2 font-bold" for="title">
+                    <%= @delete_message %>
+                </label>
+                <form phx-change="validate-delete">
+                    <input autofocus required maxlength="2" name="response_delete" class="bg-white text-gray-800 font-display focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 w-full appearance-none leading-normal" type="text" placeholder="Respuesta">
+                </form>
+            </div>
+        </div>     
+    <% end %>
+    <%= if !@delete_message do %>
+        <div class="flex items-center  relative ">
+             <%= if @agregar_usuarios_web do %>
+                <button phx-click="show_add" phx-value="true" class="hover:bg-gray-200 text-blue-400 font-medium py-2 px-4 rounded inline-flex items-center">
+                    <i class="material-icons fill-current mr-1">add</i>
+                    <span>Agregar</span>
+                </button>
+            <% end %>
+            <%= if @boton_eliminar do %>
+                <button phx-click="delete _list" class="hover:bg-gray-200 text-blue-400 font-medium py-2 px-4 rounded inline-flex items-center">
+                    <i class="material-icons fill-current mr-1">delete</i>
+                    <span>Borrar lista</span>
+                </button>
+            <% end %>
+        </div>
+    <% end %>
+
+    <p class="font-ubuntu text-2xl pb-3 mt-5"><%= @detail.name %></p>
+
+    <%= for user <- @detail.list do %>
+        <div class="flex w-full p-5 border-b-2 border-gray-300 relative">
+            <div class="w-10/12 text-gray-900">
+                <div class="inline relative"><%= user.name %>
+                    <label class="absolute left-0 mt-4 font-display text-sm text-gray-600"><%= user.email %></label>
+                </div>
+                <div class="inline ml-2">
+                    <%= if user.web > 0 do %>
+                        <img src="/images/domain.svg" class="w-5 inline">
+                    <% end %>
+                    <%= if user.android > 0 do %>
+                        <img src="/images/android.svg" class="w-5 inline">
+                    <% end %>
+                    <%= if user.ios > 0 do %>
+                        <img src="/images/apple.svg" class="w-5 inline">
+                    <% end %>
+                </div>
+            </div>
+            <div class="w-2/12" align="right">
+                <%= if @boton_quitar_usuario_lista do %>
+                    <button phx-click="delete_user" phx-value="<%= user.id %>" name="id" class="bg-transparent hover:bg-gray-200 text-gray-500 font-bold py-1 px-1 rounded-full inline-flex items-center">
+                        <i class="material-icons fill-current">delete</i>
+                    </button>
+                <% end %>
+            </div>
+        </div>   
+    <% end %>
+   
+</div>
+
+
+<%= if @detail.show_add do %>
+    <%= render "add_user.html", assigns %>
+<% end %>
+
+<script>
+    function transform_delete(){
+        var element = document.getElementById("delete");
+        element.classList.add("bg-red-500");
+        element.classList.add("hover:bg-red-800");
+    }
+</script>

@@ -19,6 +19,7 @@ defmodule GuiltySparkWeb.Router do
 
     get "/", PageController, :index
     get "/notification", NotificationController, :index
+    get "/list", ListController, :index
   end
 
   scope "/api", GuiltySparkWeb do

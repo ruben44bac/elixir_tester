@@ -1,0 +1,12 @@
+<div class="w-3/12 p-2 border-r-2 border-gray-300 min-h-screen" >
+    <div class="stepper-item">
+        <div class="w-full text-lg text-gray-800">1+ cuentas</div>
+    </div>
+
+    <div class="stepper-item">
+        <div class="w-full text-lg text-gray-800">Sin cuenta</div>
+    </div>
+
+</div>
+
+<%= render "add_user.html", assigns %>

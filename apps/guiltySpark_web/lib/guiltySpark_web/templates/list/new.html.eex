@@ -1,0 +1,21 @@
+<div class="w-3/12 p-2 h-full border-r-2 border-gray-300 relative" >
+    <form phx-change="validate">
+        <div class="mb-2 mt-6 w-full">
+            <label class="block text-gray-700 text-sm font-bold mb-2 " for="title">
+                Nombre
+            </label>
+            <input required maxlength="100" name="name" class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 w-full appearance-none leading-normal" type="text" placeholder="Nombre">
+            <%= if @changeset.errors[:name] != nil do %>
+                <p class="text-red-500 text-xs font-error" ><%= @changeset.errors[:name] |> elem(0) %></p>
+            <% end %>
+        <div>
+    </form>
+    <div class="absolute rounded-xl bottom-0 left-0 p-3 w-full bg-white">
+        <button phx-click="save"  phx-value="4" class="bg-teal-500 hover:bg-teal-400 text-white font-medium py-2 px-4 rounded inline-flex items-center">
+            <i class="material-icons md-18 fill-current mr-1">create_new_folder</i>
+            <span>Crear lista</span>
+        </button>
+    </div>
+</div>
+
+
