@@ -14,7 +14,7 @@ defmodule GuiltySpark.PermissionHandler do
 
   def validate_fluffy(token) do
     req = JSX.encode! %{"token" => token}
-    case HTTPoison.post("http://10.0.3.120:4000/api/login/verify", req, [{"Content-Type", "application/json"}]) do
+    case HTTPoison.post("http://172.19.1.1:4000/api/login/verify", req, [{"Content-Type", "application/json"}]) do
       {:ok, %HTTPoison.Response{status_code: 200}} ->
         true
       {:ok, _} ->
@@ -44,10 +44,10 @@ defmodule GuiltySpark.PermissionHandler do
         "token" => token,
         "path" => Base.encode64(program)}
 
-      HTTPoison.get("http://10.0.3.120:4000/api/permission", [], params: req)
+      HTTPoison.get("http://172.19.1.1:4000/api/permission", [], params: req)
         |> IO.inspect(label: "RESPUESTA DE SERVICIO DEL PEDRON =============>>>>>    ")
 
-      case HTTPoison.get("http://10.0.3.120:4000/api/permission", [], params: req) do
+      case HTTPoison.get("http://172.19.1.1:4000/api/permission", [], params: req) do
         {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
           body
            |> String.replace("'", "\"")
