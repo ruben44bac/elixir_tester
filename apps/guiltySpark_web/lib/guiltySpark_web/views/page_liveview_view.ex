@@ -2,7 +2,7 @@ defmodule GuiltySparkWeb.PageLiveView do
   use Phoenix.LiveView
 
   def render(assigns) do
-    GuiltySparkWeb.PageView.render("github_deploy.html", assigns)
+    GuiltySparkWeb.PageView.render("index.html", assigns)
   end
 
   def mount(_session, socket) do

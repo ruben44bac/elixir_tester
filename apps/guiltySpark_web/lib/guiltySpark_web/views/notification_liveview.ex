@@ -15,7 +15,7 @@ defmodule GuiltySparkWeb.NotificationLiveView do
     valid = PermissionHandler.validate_fluffy(assigns.token)
     if valid do
       permissions = permission(assigns)
-      GuiltySparkWeb.NotificationView.render("notification.html", assigns |> Map.merge(permissions))
+      GuiltySparkWeb.NotificationView.render("index.html", assigns |> Map.merge(permissions))
     else
       GuiltySparkWeb.ErrorView.render("live_index.html", assigns)
     end
@@ -26,11 +26,6 @@ defmodule GuiltySparkWeb.NotificationLiveView do
       |> init_notification
       GuiltySparkWeb.Endpoint.subscribe(@topic_check)
     {:ok, resp}
-  end
-
-  def handle_event("github_deploy", _value, socket) do
-    # do the deploy process
-    {:noreply, assign(socket, deploy_step: "Starting deploy...")}
   end
 
   def handle_event("paginator_list", _params, socket) do
@@ -46,14 +41,15 @@ defmodule GuiltySparkWeb.NotificationLiveView do
   end
 
   def handle_event("change_detail", params, socket) do
-    GuiltySparkWeb.Endpoint.subscribe("tester")
+
+    GuiltySparkWeb.Endpoint.subscribe(@topic_check  )
     {:noreply, assign(socket,
       show_new: false,
       show_detail: true,
       notifications: socket.assigns.notifications,
       notifications_total: socket.assigns.notifications_total,
       notification_index: socket.assigns.notification_index,
-      notification_detail: NotificationDetailHandler.detail(%{id: params}, "")
+      notification_detail: NotificationDetailHandler.detail(%{id: params["id"]}, "")
     )}
   end
 

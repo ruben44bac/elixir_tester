@@ -1,0 +1,27 @@
+
+    <input class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mb-5 block w-full appearance-none leading-normal" type="email" placeholder="Buscador...">
+
+    <div class="overflow-y-scroll style-scroll" style="height:65vh;" >
+        <%= for notifications <- @notifications do %>
+        <div phx-click="change_detail" phx-value-id="<%= notifications.id %>" id="div-<%= notifications.id %>"  onclick="load()" class="w-full bg-local bg-cover bg-center shadow-md rounded cursor-pointer mb-3" style="background-image: url(<%= notifications.image_path %>)" >
+            <div class="bg-notification-item rounded p-4 relative">
+                <p class="text-white absolute right-0 pr-4 font-display text-xs"><%= notifications.date %></p>
+                <h4 class="text-white mt-12 text-2xl"><%= notifications.title %></h4>
+                <p class="text-white text-sm"><%= notifications.description %></p>
+            </div>
+        </div>
+        <% end %>
+        <div class="w-full p-3 <%= if Enum.count(@notifications) >= (@notifications_total - 1) do "hidden" end %>" align="center">
+            <button phx-click="paginator_list" onclick="charts_detail_change(<%= @notification_detail.receiver_android %>,
+                <%= @notification_detail.receiver_ios %>,
+                <%= @notification_detail.receiver_web %>,
+                <%= @notification_detail.receiver_user %>,
+                <%= @notification_detail.receiver_guess %>,
+                <%= @notification_detail.receiver_x %>)" 
+                class="bg-gray-200 hover:bg-gray-700 text-gray-900 font-bold py-2 px-6 rounded inline-flex items-center">
+                <i class="material-icons fill-current mr-1">cloud_download</i>
+                <span>Mostrar más... </span>
+            </button>
+        </div>
+    </div>
+

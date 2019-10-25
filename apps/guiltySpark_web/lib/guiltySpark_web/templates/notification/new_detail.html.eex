@@ -1,0 +1,85 @@
+
+<div class="w-3/12 p-1 border-r-2 border-gray-300  relative" >
+    <div class=" px-8 pt-6 pb-8 mb-4 w-full h-full overflow-y-scroll style-scroll">
+        <form phx-change="show_detail_list" enctype="multipart/form-data" class="mb-20">
+            <div class="mb-4 mt-6 w-full relative">
+                <label class="block text-gray-700 text-sm font-bold mb-2 " for="type">
+                    Tipo de notificación
+                </label>
+            
+                    <select name="type" class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 w-full appearance-none leading-normal">
+                        <option value="1" <%= if @new_conf.form.type == 1, do: "selected" %>>Generica</option>
+                        <option value="2" <%= if @new_conf.form.type == 2, do: "selected" %>>Por lista</option>
+                    </select>
+                
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pt-6 px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+            </div>
+            <div class="mb-2 mt-6 w-full">
+                <label class="block text-gray-700 text-sm font-bold mb-2 " for="title">
+                    Título
+                </label>
+                <input required maxlength="30" name="title" value="<%= @new_conf.form.title %>" class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 w-full appearance-none leading-normal" type="text" placeholder="Título" multiple>
+                <%= if @new_conf.form.error[:title] != nil do %>
+                    <p class="text-red-500 text-xs font-error" ><%= @new_conf.form.error[:title] |> elem(0) %></p>
+                <% end %>
+            </div>
+            <div class="mb-2 mt-6 w-full">
+                <label class="block text-gray-700 text-sm font-bold mb-2 " for="image">
+                    Imagen
+                </label>
+                <input id="files" onchange="handleFileSelect" type="file">
+                 <%= if @new_conf.form.error[:image_path] != nil do %>
+                    <p class="text-red-500 text-xs font-error" ><%= @new_conf.form.error[:image_path] |> elem(0) %></p>
+                <% end %>
+            </div>
+            <img src="data:image/jpeg;base64,<%= @new_conf.form.image %>" class="rounded shadow-lg w-full <%= if String.length(@new_conf.form.image) <= 1, do: "hidden" %>">
+            <div class="hidden">
+                <label class="block text-gray-700 text-sm font-bold mb-2 " for="description">
+                    BASE 64
+                </label>
+                <textarea id="base64" name="image" class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 w-full appearance-none leading-normal" type="text" placeholder="Image"><%= @new_conf.form.image %></textarea>
+            </div>
+            <div class="mb-2 mt-6 w-full">
+                <label class="block text-gray-700 text-sm font-bold mb-2 " for="description">
+                    Mensaje
+                </label>
+                <textarea name="description" id="input_description" class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 w-full appearance-none leading-normal" type="text" placeholder="Mensaje"><%= @new_conf.form.description %></textarea>
+                <%= if @new_conf.form.error[:description] != nil do %>
+                    <p class="text-red-500 text-xs font-error" ><%= @new_conf.form.error[:description] |> elem(0) %></p>
+                <% end %>
+            </div>
+        </form>
+
+         <div class="absolute rounded-xl bottom-0 left-0 p-3 w-full bg-white">
+            <button phx-click="new_next" phx-value="2" class="bg-transparent hover:bg-gray-100 border-solid border-2 border-teal-500 text-teal-500 font-medium py-2 px-4 rounded inline-flex items-center">
+                <span>Siguiente</span>
+                <i class="material-icons fill-current ml-1">keyboard_arrow_right</i>
+            </button>
+        </div>
+   </div>
+</div>
+
+<%= if @new_conf.form.type == 2 do %>
+    <%= render "new_detail_list.html", assigns %>
+<% end %>
+
+<script>
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+} 
+function handleFileSelect(evt) {
+  var f = evt.target.files[0];
+  var reader = new FileReader();
+  reader.onload = (function(theFile) {
+    return function(e) {
+      var binaryData = e.target.result;
+      var base64String = window.btoa(binaryData);
+      document.getElementById('base64').value = base64String;
+    };
+  })(f);
+  reader.readAsBinaryString(f);
+}
+
+</script>

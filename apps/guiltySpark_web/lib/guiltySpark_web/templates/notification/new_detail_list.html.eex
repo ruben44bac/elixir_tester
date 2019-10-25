@@ -1,0 +1,27 @@
+<div class="w-3/12 p-5 min-h-screen" >
+    <p class="font-ubuntu text-lg pb-3">Selecciona las listas de usuarios</p>
+
+    <%= for list <- @new_conf.form.list_list do %>
+        <div class="flex w-full p-5 border-b-2 border-gray-300 relative">
+            <div class="w-2/3 text-gray-600">
+                <%= list.name %> 
+            </div>
+            <div class="w-1/3 " align="right">
+                <!-- <form phx-change="add_list">
+                    <div class="modern-checkbox flex shadow-md h-6 w-12 rounded-full " >
+                        <input name="id" value="<%= list.id %>" type="text" class="hidden">
+                        <input class="hidden" type="checkbox" id="checkbox-<%= list.id %>">
+                        <label class="relative inline bg-transparent w-10" for="checkbox-<%= list.id %>"></label>
+                    </div>
+                </form> -->
+                <button phx-click="add_list" phx-value="<%= list.id %>" name="id" 
+                        class="bg-transparent hover:bg-red-200 text-red-500
+                        <%= if list.status, do: "hover:bg-blue-200 text-blue-500" %> 
+                        text-sm py-1 px-3 rounded-lg inline-flex items-center">
+                    <%= if list.status, do: "Agregar" %>
+                    <%= if !list.status, do: "Eliminar" %> 
+                </button>
+            </div>
+        </div>   
+    <% end %>
+</div>

@@ -32,8 +32,10 @@ defmodule GuiltySpark.NotificationDetailHandler do
   end
 
   def detail(%{id: id}, _params) do
+    IO.inspect(id, label: "LALALALALALALALAALALALALALALALALALALALALALALA ===========>   ")
     resp = NotificationSchema
       |> Repo.get(id)
+
     detail(%{
         image_path: resp.image_path,
         title: resp.title,

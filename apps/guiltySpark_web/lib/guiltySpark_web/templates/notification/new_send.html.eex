@@ -1,0 +1,60 @@
+<div class="w-6/12 p-5 relative " >
+    <div class="w-full h-full overflow-y-scroll style-scroll">
+        <h4 class="mt-5 text-2xl"><%= @new_conf.form.title %></h4>
+        <p class="text-md"><%= @new_conf.form.description %></p>
+        <br>
+        <p class="font-display">Tipo de notificación: <label class="font-ubuntu"><%= @new_conf.form.type %></label></p>
+        <p class="font-display">Ruta web:<label class="font-ubuntu"><%= @new_conf.form.link_web %></label></p>
+        <p class="font-display">Vista de app: <label class="font-ubuntu"><%= @new_conf.form.app_view.app_view_id %>
+            ("<%= @new_conf.form.app_view.p1 %>", "<%= @new_conf.form.app_view.p2 %>")</label></p>
+        <p class="font-display">Total de receptores al momento: 950</p>
+
+        <div class="flex w-full mb-20">
+            <div class="w-1/2 p-3">
+                <h5 class="font-ubuntu mt-5">Santiago móvil</h5>
+                <div class="rounded-lg bg-white p-2 mt-4 shadow-lg relative">
+                    <div class="border-b-2 border-gray-300 relative">
+                        <img src="/images/favicon.png" class="inline w-8 h-8 mr-3"><label class="font-ubuntu">Santiago</label>
+                        <label class="absolute right-0 text-gray-500 text-sm pr-2 pt-2">Ahora</label>
+                    </div>
+                    <p class="font-ubuntu pl-3 pt-2"><%= @new_conf.form.title %></p>
+                    <img src="data:image/jpeg;base64,<%= @new_conf.form.image %>" class="absolute right-0 top-0 mt-12 mr-5 w-10 h-10 rounded">
+                    <p class="text-sm p-3 "><%= @new_conf.form.description %></p>
+                </div>
+
+                <div class="rounded-lg bg-white p-2 mt-4 shadow-lg relative">
+                    <div class="border-b-2 border-gray-300 relative">
+                        <img src="/images/favicon.png" class="inline w-8 h-8 mr-3"><label class="font-ubuntu">Santiago</label>
+                        <label class="absolute right-0 text-gray-500 text-sm pr-2 pt-2">Ahora</label>
+                    </div>
+                    <p class="font-ubuntu pl-3 pt-2"><%= @new_conf.form.title %></p>
+                    <img src="data:image/jpeg;base64,<%= @new_conf.form.image %>" class="right-0 top-0 w-full rounded">
+                    <p class="text-sm pl-3 pr-3 pb-3"><%= @new_conf.form.description %></p>
+                </div>
+            </div>
+            <div class="w-1/2 p-3">
+                <h5 class="font-ubuntu mt-5">Tienda web</h5>
+                <div class="bg-gray-800 p-2 mt-4 shadow-lg relative">
+                    <img src="data:image/jpeg;base64,<%= @new_conf.form.image %>" class="right-0 top-0 w-full rounded">
+                    <div class="flex">
+                        <div class="w-2/12" align="center">
+                            <img src="data:image/jpeg;base64,<%= @new_conf.form.image %>" class="right-0 top-0 w-10 h-10 mt-6 rounded">
+                        </div>
+                        <div class="w-10/12 text-white py-3">
+                            <p class="font-ubuntu"><%= @new_conf.form.title %></p>
+                            <p class="text-sm "><%= @new_conf.form.description %></p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="absolute rounded-xl bottom-0 left-0 p-3 w-full bg-white">
+        <button phx-click="send"  phx-value="4" class="bg-teal-500 hover:bg-teal-400 text-white font-medium py-2 px-4 rounded inline-flex items-center">
+            <i class="material-icons md-18 fill-current mr-1">send</i>
+            <span>Iniciar envio</span>
+        </button>
+    </div>
+</div>

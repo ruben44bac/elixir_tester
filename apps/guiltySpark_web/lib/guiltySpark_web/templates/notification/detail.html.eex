@@ -1,0 +1,254 @@
+<div class=" p-10 w-9/12 h-full overflow-y-scroll style-scroll">
+    <div class="flex">
+        <div class="w-full flex clearfix ">
+            <div class="bg-local bg-cover bg-center rounded-full h-40 w-40 inline" style="background-image: url(<%= @notification_detail.image %>)">
+            </div> 
+            <div class="ml-8 p-5 w-8/12 inline">
+                <h3 class="text-4xl display-ubuntu"><%= @notification_detail.title %></h3>
+                <p class="text-gray-800"><%= @notification_detail.description %></p>
+                <p class="text-gray-500 font-display"><%= @notification_detail.date %></p>
+            </div>
+        </div>
+    </div>
+    <div class="flex mt-3">
+        <div class="w-2/5 p-5 sm:w-full md:w-full lg:w-2/5 xl:w-2/5 flex-no-wrap" >
+            <div class="bg-white shadow-lg rounded-lg py-12">
+                <label class="ml-12 font-ubuntu text-lg"><label class="font-display text-4xl"><%= @notification_detail.receiver_total %></label> receptores</label>
+                <canvas id="chart-area-detail" class="h-40 " align="center"></canvas>
+            </div>
+        </div>
+
+        <div class="w-3/5 p-5 sm:w-full md:w-full lg:w-3/5 xl:w-3/5" >
+            <div class="bg-white shadow-lg rounded-lg  py-12"  >
+                <label class="ml-12 font-ubuntu text-lg"><label class="font-display text-4xl">Usuarios</label> y desconocidos</label>
+                <canvas id="chart-area-user-detail" class="h-1 px-32" style="height:250px" align="center"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex">
+        <div class="w-2/5 p-5 sm:w-full md:w-full lg:w-2/5 xl:w-2/5 flex-no-wrap" >
+            <div class="bg-white shadow-lg rounded-lg py-12">
+                <label class="ml-12 font-ubuntu text-lg"><label class="font-display text-4xl">Interacciones</label> totales</label>
+                <div class="flex w-full pt-8">
+                    <div class="w-1/2" align="center">
+                        <img class="w-16 mb-2" src="/images/tap.png">
+                        <p class="text-xl text-gray-700">Interactuaron</p>
+                        <p class="font-display text-2xl"><%= @notification_detail.interaction_true %></p>
+                    </div>
+                    <div class="w-1/2" align="center">
+                        <img class="w-16 mb-2" src="/images/trash.png">
+                        <p class="text-xl text-gray-700">Desecharon</p>
+                        <p class="font-display text-2xl"><%= @notification_detail.interaction_false %></p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="w-3/5 p-5 sm:w-full md:w-full lg:w-3/5 xl:w-3/5" >
+            <div class="bg-white shadow-lg rounded-lg  py-12"  >
+                <label class="ml-12 font-ubuntu text-lg"><label class="font-display text-4xl">Interacciones</label> por plataforma</label>
+                
+                <div class="flex w-full py-4">
+                    <div class="w-1/3 " align="center">
+                        <p class="font-display text-4xl"><%= @notification_detail.receiver_android %></p>
+                        <div class="flex flex-wrap  w-full">
+                            <img src="/images/android.svg" class="w-1/6 ml-auto">
+                            <div class="w-1/4 mr-auto text-left pt-1">Android</div>
+                        </div>
+                        <p class="text-green-500"><%= @notification_detail.receiver_interaction_android %> abiertos</p>
+                    </div> 
+
+                    <div class="w-1/3 " align="center">
+                        <p class="font-display text-4xl"><%= @notification_detail.receiver_ios %></p>
+                        <div class="flex flex-wrap  w-full">
+                            <img src="/images/apple.svg" class="w-1/6 ml-auto">
+                            <div class="w-1/6 mr-auto text-left pt-1">iOS</div>
+                        </div>
+                        <p class="text-green-500"><%= @notification_detail.receiver_interaction_ios %> abiertos</p>
+                    </div> 
+
+                    <div class="w-1/3 " align="center">
+                        <p class="font-display text-4xl"><%= @notification_detail.receiver_web %></p>
+                        <div class="flex flex-wrap  w-full">
+                            <img src="/images/domain.svg" class="w-1/6 ml-auto">
+                            <div class="w-1/6 mr-auto text-left pt-1">Web</div>
+                        </div>
+                        <p class="text-green-500"><%= @notification_detail.receiver_interaction_web %> abiertos</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<button class="p3 bg-green-400 text-white rounded hidden" id="change-detail" 
+    onclick="charts_detail_change(<%= @notification_detail.receiver_android %>,
+        <%= @notification_detail.receiver_ios %>,
+        <%= @notification_detail.receiver_web %>,
+        <%= @notification_detail.receiver_user %>,
+        <%= @notification_detail.receiver_guess %>,
+        <%= @notification_detail.receiver_x %>)"></button>
+            
+    <script>
+        document.addEventListener('phx:update', load);
+        charts_detail_init();
+        function load(){
+            setTimeout(function(){ 
+                console.log("EN EL LOAD");
+                test = document.getElementById("change-detail")
+                test.onclick.apply(test)
+            }, 500);
+        }
+        function charts_detail_init(){
+            var config = {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [
+                            <%= @notification_detail.receiver_android %>,
+                            <%= @notification_detail.receiver_ios %>,
+                            <%= @notification_detail.receiver_web %>
+                        ],
+                        backgroundColor: [
+                            '#68D391',
+                            '#CBD5E0',
+                            '#4299E1',
+                        ],
+                        label: 'Dataset 1'
+                    }],
+                    labels: [
+                        'Android',
+                        'iOS',
+                        'Web'
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            };
+            var config_1 = {
+                type: 'horizontalBar',
+                data: {
+                    datasets: [{
+                        data: [
+                            <%= @notification_detail.receiver_user %>,
+                            <%= @notification_detail.receiver_guess %>,
+                            <%= @notification_detail.receiver_x %>
+                        ],
+                        backgroundColor: [
+                            '#4299E1',
+                            '#9F7AEA',
+                            '#9F7AEA'
+                        ],
+                        label: 'Usuarios'
+                    }],
+                    labels: [
+                        'Usuarios',
+                        'Sin cuenta',
+                        "Sin sesión"
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            };
+            setTimeout(function(){ 
+                
+                var ctx = document.getElementById('chart-area-detail').getContext('2d');
+                window.myDoughnut = new Chart(ctx, config);
+                var ctx_1 = document.getElementById('chart-area-user-detail').getContext('2d');
+                window.myDoughnut = new Chart(ctx_1, config_1);
+            }, 500);
+        }
+        function charts_detail_change(android, ios, web, user, guess, x){
+            var config = {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [
+                            android,
+                            ios,
+                            web
+                        ],
+                        backgroundColor: [
+                            '#68D391',
+                            '#CBD5E0',
+                            '#4299E1',
+                        ],
+                        label: 'Dataset 1'
+                    }],
+                    labels: [
+                        'Android',
+                        'iOS',
+                        'Web'
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            };
+            var config_1 = {
+                type: 'horizontalBar',
+                data: {
+                    datasets: [{
+                        data: [
+                            user,
+                            guess,
+                            x
+                        ],
+                        backgroundColor: [
+                            '#4299E1',
+                            '#9F7AEA',
+                            '#9F7AEA'
+                        ],
+                        label: 'Usuarios'
+                    }],
+                    labels: [
+                        '1+ cuentas',
+                        'Sin cuenta',
+                        "Sin sesión"
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            };
+            setTimeout(function(){ 
+                var ctx = document.getElementById('chart-area-detail').getContext('2d');
+                window.myDoughnut = new Chart(ctx, config);
+                var ctx_1 = document.getElementById('chart-area-user-detail').getContext('2d');
+                window.myDoughnut = new Chart(ctx_1, config_1);
+            }, 100);
+        }
+	</script>

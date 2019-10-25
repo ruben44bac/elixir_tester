@@ -1,6 +1,11 @@
 defmodule GuiltySparkWeb.NotificationController do
   use GuiltySparkWeb, :controller
-
+  alias GuiltySpark.NotificationHandler
+  alias GuiltySpark.{
+    SpecificNewNotificationCommand,
+    GenericNewNotificationCommand,
+    CheckNotificationCommand
+  }
   alias Phoenix.LiveView
 
   def index(conn, _params) do
@@ -8,4 +13,33 @@ defmodule GuiltySparkWeb.NotificationController do
       token: "jajajaj", user_id: 2, role_id: 2
     })
   end
+
+  def new_generic(conn, attrs) do
+    resp = attrs
+      |> GenericNewNotificationCommand.new
+      |> NotificationHandler.send_generic("general")
+    case resp do
+      {:error, _} -> json conn, %{error: "Algo salio mal"}
+      _ -> json conn, %{data: "Tu notificación ha sido enviada"}
+    end
+  end
+
+  def new_specific(conn, attrs) do
+    resp = attrs
+      |> SpecificNewNotificationCommand.new
+      |> NotificationHandler.send_specific
+
+    case resp do
+      {:error, _} -> json conn, %{error: "Algo salio mal"}
+      _ -> json conn, %{data: "Tu notificación ha sido enviada"}
+    end
+  end
+
+  def check(conn, attrs) do
+		attrs
+		  |> CheckNotificationCommand.new
+      |> NotificationHandler.check
+    json conn, %{data: "Notificación actualizada"}
+	end
+
 end
