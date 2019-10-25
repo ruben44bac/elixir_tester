@@ -1,8 +1,168 @@
-    <div class="">
-      <div>
-        <div>
-          <button phx-click="github_deploy">Deploy to GitHub jaja</button>
+<div class="w-11/12 ml-12">
+    <h3 class="font-ubuntu text-3xl md:text-6xl lg:text-3xl: xl:text-3xl ">Dashboard</h3>
+
+    <div class="my-3 flex flex-wrap w-full">
+        
+        <div class="w-1/5 p-5 ">
+            <div class="w-full bg-white shadow-lg rounded-lg py-12" align="center">
+                <div class="bg-pink-900 rounded-full h-10 w-10 md:h-32 lg:h-10 xl:h-10 md:w-32 lg:w-10 xl:w-10 md:w-32 lg:w-10 xl:w-10  flex items-center justify-center text-white">
+                    <i class="material-icons">notifications_none</i>
+                </div>
+                <p class="font-display text-5xl text-gray-900"><%= @notification_total %></p>
+                <p class="text-gray-600 font-ubuntu">Notificaciones</p>
+            </div>
         </div>
-        Status: <%= @deploy_step %>
-      </div>
-    </div>
+        <div class="w-1/5 p-5 sm:w-full md:w-full lg:w-1/5 xl:w-1/5">
+            <div class="w-full bg-white shadow-lg rounded-lg py-12" align="center">
+
+                <div class="bg-teal-500 rounded-full h-10 w-10 flex items-center justify-center text-white">
+                    <i class="material-icons">person_outline</i>
+                </div>
+                <p class="font-display text-5xl text-gray-900"><%= @user_total %></p>
+                <p class="text-gray-600 font-ubuntu">Usuarios</p>
+            </div>
+        </div>
+        <div class="w-1/5 p-5 sm:w-full md:w-full lg:w-1/5 xl:w-1/5">
+            <div class="w-full bg-white shadow-lg rounded-lg py-12" align="center">
+
+                <div class="bg-blue-700 rounded-full h-10 w-10 flex items-center justify-center text-white">
+                    <i class="material-icons">list</i>
+                </div>
+                <p class="font-display text-5xl text-gray-900"><%= @list_total %></p>
+                <p class="text-gray-600 font-ubuntu">Listas</p>
+            </div>
+        </div>
+
+        
+        <div class="w-2/5 p-5 sm:w-full md:w-full lg:w-2/5 xl:w-2/5">
+            <div class="w-full bg-local bg-cover bg-center shadow-lg rounded-lg " style="background-image: url(<%= @last_notification.image %>)" >
+                <div class="bg-last-notification rounded-lg">
+                    <p class="text-white text-3xl pl-10 pt-5"><%= @last_notification.title %></p>
+                    <p class="text-white mt-1 px-10 text-xs"><%= @last_notification.description %></p>
+                    <div class="flex w-full py-4">
+                        <div class="w-1/3 " align="center">
+                            <p class="font-display text-4xl"><%= @last_notification.receiver_android %></p>
+                            <div class="flex flex-wrap  w-full">
+                                <img src="/images/android.svg" class="w-1/6 ml-auto">
+                                <div class="w-1/4 mr-auto text-left pt-1">Android</div>
+                            </div>
+                            <p class="text-green-500"><%= @last_notification.receiver_interaction_android %> abiertos</p>
+                        </div> 
+
+                        <div class="w-1/3 " align="center">
+                            <p class="font-display text-4xl"><%= @last_notification.receiver_ios %></p>
+                            <div class="flex flex-wrap  w-full">
+                                <img src="/images/apple.svg" class="w-1/6 ml-auto">
+                                <div class="w-1/6 mr-auto text-left pt-1">iOS</div>
+                            </div>
+                            <p class="text-green-500"><%= @last_notification.receiver_interaction_ios %> abiertos</p>
+                        </div> 
+
+                        <div class="w-1/3 " align="center">
+                            <p class="font-display text-4xl"><%= @last_notification.receiver_web %></p>
+                            <div class="flex flex-wrap  w-full">
+                                <img src="/images/domain.svg" class="w-1/6 ml-auto">
+                                <div class="w-1/6 mr-auto text-left pt-1">Web</div>
+                            </div>
+                            <p class="text-green-500"><%= @last_notification.receiver_interaction_web %> abiertos</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="w-2/5 p-5 sm:w-full md:w-full lg:w-2/5 xl:w-2/5" >
+            <div class="bg-white shadow-lg rounded-lg py-12">
+                <label class="ml-12 font-ubuntu text-lg"><label class="font-display text-4xl"><%= @total_token %></label> dispositivos registrados</label>
+                <canvas id="chart-area" class="h-40 " align="center"></canvas>
+            </div>
+        </div>
+
+         <div class="w-3/5 p-5 sm:w-full md:w-full lg:w-3/5 xl:w-3/5" >
+            <div class="bg-white shadow-lg rounded-lg  py-12"  >
+                <label class="ml-12 font-ubuntu text-lg"><label class="font-display text-4xl">Usuarios</label> y desconocidos</label>
+                <canvas id="chart-area-user" class="h-1 px-32" style="height:250px" align="center"></canvas>
+            </div>
+        </div>
+    <div>
+    
+</div>
+
+    <script>
+		
+        
+        setTimeout(function(){ 
+            var config = {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [
+                            <%= for value <- @total_devices, do:  "#{value.count}," %>
+                        ],
+                        backgroundColor: [
+                            '#68D391',
+                            '#CBD5E0',
+                            '#4299E1',
+                        ],
+                        label: 'Dataset 1'
+                    }],
+                    labels: [
+                        <%= for value <- @total_devices do %>
+                            '<%= value.name %>',
+                        <% end %>
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom',
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            };
+
+            var config_1 = {
+			type: 'horizontalBar',
+			data: {
+				datasets: [{
+					data: [
+						 <%= for value <- @total_type_user, do:  "#{value.count}," %>
+					],
+					backgroundColor: [
+						'#4299E1',
+                        '#9F7AEA'
+					],
+					label: 'Usuarios'
+				}],
+				labels: [
+					<%= for value <- @total_type_user do %>
+                        '<%= case value.type do
+                            1 ->  '1+ cuentas'
+                            2 ->  'Sin cuenta'
+                            _ ->  'Desconocido' 
+                        end %>',
+                    <% end %>
+				]
+			},
+			options: {
+				responsive: true,
+				legend: {
+					position: 'bottom',
+				},
+				animation: {
+					animateScale: true,
+					animateRotate: true
+				}
+			}
+		};
+
+			var ctx = document.getElementById('chart-area').getContext('2d');
+			window.myDoughnut = new Chart(ctx, config);
+            var ctx_1 = document.getElementById('chart-area-user').getContext('2d');
+			window.myDoughnut = new Chart(ctx_1, config_1);
+		}, 500);
+	</script>

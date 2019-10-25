@@ -3,9 +3,21 @@ defmodule GuiltySparkWeb.PageController do
 
   alias Phoenix.LiveView
 
+  alias GuiltySpark.PermissionHandler
+
+
   def index(conn, _params) do
-    LiveView.Controller.live_render(conn, GuiltySparkWeb.PageLiveView, session: %{
-      token: "jajajaj", user_id: 2, role_id: 2
-    })
+    valid = PermissionHandler.validate_fluffy(conn.query_params, conn)
+    if valid do
+      conn
+        |> PermissionHandler.validate_session(conn.query_params)
+        |> LiveView.Controller.live_render(GuiltySparkWeb.PageLiveView, session: conn.query_params)
+    else
+      conn
+      |> put_session(:token, "")
+      |> render(GuiltySparkWeb.ErrorView, "index.html")
+    end
+
+
   end
 end

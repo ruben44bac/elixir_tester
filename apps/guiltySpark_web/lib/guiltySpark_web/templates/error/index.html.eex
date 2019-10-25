@@ -1,0 +1,28 @@
+<div class="bg-gray-200 w-full h-screen inline-flex items-center fixed top-0 left-0">
+
+    <div class="block w-1/2 mr-auto ml-auto text-center font-ubuntu">
+        <div class="w-full flex ">
+            <img src="/images/dead-bird.png" class=" w-1/4 mr-auto ml-auto">
+        </div>
+        <label class="block text-4xl ">¡Lo sentimos!</label>
+        <label class="block text-xl text-gray-700">Tu sesión ha caducado...<br> Ingresa de nuevo a santiago y después a <b>Notificaciones digital</b></label>
+        <label class="block mt-5 text-lg">Te ayudaremos a desaparecer esta ventana en: <b id="countdown">5</b></label>
+    </div>
+</div>
+<script>
+    f_countdown()
+    function f_countdown() {
+        elemento = document.getElementById('countdown').innerHTML;
+        if(elemento == 0) {
+            var win = window.open("about:blank", "_self");
+            win.close()
+        }
+        setTimeout(function(){
+                document.getElementById('countdown').innerHTML = elemento - 1;
+                f_countdown()
+            }, 1000);
+    }
+    
+
+
+</script>

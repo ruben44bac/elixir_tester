@@ -1,4 +1,6 @@
 defmodule GuiltySpark.PermissionHandler do
+
+
   def validate_fluffy(params, conn) do
 
     case params == %{} do
@@ -12,6 +14,9 @@ defmodule GuiltySpark.PermissionHandler do
 
   def validate_fluffy(token) do
     req = JSX.encode! %{"token" => token}
+
+    HTTPoison.post("http://10.0.3.120:4000/api/login/verify", req, [{"Content-Type", "application/json"}])
+    |> IO.inspect(label: "RESPUESTA DE SERVICIO DEL PINCHE PEDRO CAKE =============>>>>>    ")
     case HTTPoison.post("http://10.0.3.120:4000/api/login/verify", req, [{"Content-Type", "application/json"}]) do
       {:ok, %HTTPoison.Response{status_code: 200}} ->
         true
@@ -20,7 +25,6 @@ defmodule GuiltySpark.PermissionHandler do
       {:error, _} ->
         false
     end
-    true
   end
 
   def validate_session(conn, %{"uid" => user_id, "rid" => role_id, "token" => token}) do
@@ -43,8 +47,6 @@ defmodule GuiltySpark.PermissionHandler do
         "user_id" => user_id,
         "token" => token,
         "path" => Base.encode64(path)}
-        HTTPoison.get("http://10.0.3.120:4000/api/permission", [], params: req)
-          |> IO.inspect(label: "RESPUESTA DE SERVICIO DEL PINCHE PEDRO CAKE =============>>>>>    ")
       case HTTPoison.get("http://10.0.3.120:4000/api/permission", [], params: req) do
         {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
           body
@@ -53,7 +55,13 @@ defmodule GuiltySpark.PermissionHandler do
         {:ok, _} -> %{}
         {:error, _} -> %{}
       end
+  end
 
+  def get_session(conn) do
+    user_id = Plug.Conn.get_session(conn, :user_id)
+    role_id = Plug.Conn.get_session(conn, :role_id)
+    token = Plug.Conn.get_session(conn, :token)
+    %{user_id: user_id, role_id: role_id, token: token}
   end
 
 end
