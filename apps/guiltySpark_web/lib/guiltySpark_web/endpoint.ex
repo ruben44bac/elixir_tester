@@ -1,6 +1,8 @@
 defmodule GuiltySparkWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :guiltySpark_web
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket "/socket", GuiltySparkWeb.UserSocket,
     websocket: true,
     longpoll: false

@@ -22,7 +22,10 @@ config :guiltySpark_web, GuiltySparkWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "yv90wiqGMyCZ0KV/MxVe7oAnA3hD6VVHhBM4mL+GzAkAT5fccmT4z9b56ESvKuUe",
   render_errors: [view: GuiltySparkWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: GuiltySparkWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: GuiltySparkWeb.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "8ioYmdljKIFwiDFYfrE25aHtzCpU4GdfRgLMt2NZdKmz+vexrFQdPbk2sXOINL7t"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -32,6 +35,8 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :phoenix,
+  template_engines: [leex: Phoenix.LiveView.Engine]
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
