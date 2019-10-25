@@ -3,7 +3,7 @@
 
 <div class="h-screen overflow-y-scroll style-scroll">
     <%= for list <- @list do %>
-        <div class="stepper-item"  phx-click="change_detail" phx-value="<%= list.id %>"  >
+        <div class="stepper-item"  phx-click="change_detail" phx-value-id="<%= list.id %>"  >
             <div class="w-9/12 mt-2 text-lg text-gray-800"><%= list.name %></div>
             <div class="w-3/12 text-right pr-3">
                 <label class="font-display text-2xl"><%= list.users_count %></label> 

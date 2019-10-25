@@ -22,7 +22,7 @@ defmodule GuiltySparkWeb.ListLiveView do
     {:ok, resp}
   end
   def handle_event("change_detail", params, socket) do
-    list = ListHandler.get(String.to_integer(params))
+    list = ListHandler.get(String.to_integer(params["id"]))
     :timer.cancel(socket.assigns.timer)
     {:noreply, assign(socket,
         show_new: false,
@@ -51,7 +51,7 @@ defmodule GuiltySparkWeb.ListLiveView do
           name: socket.assigns.detail.name,
           id: socket.assigns.detail.id,
           list: socket.assigns.detail.list,
-          show_add: params == "true",
+          show_add: params["status"] == "true",
           left_list: ListHandler.left_users_for_list(socket.assigns.detail.id)
         },
         list_total: socket.assigns.list_total,
@@ -61,12 +61,12 @@ defmodule GuiltySparkWeb.ListLiveView do
   end
 
   def handle_event("add_user", params, socket) do
-    ListHandler.add_user(String.to_integer(params), socket.assigns.detail.id)
+    ListHandler.add_user(String.to_integer(params["id"]), socket.assigns.detail.id)
     response_user(socket)
   end
 
   def handle_event("delete_user", params, socket) do
-    ListHandler.delete_user(String.to_integer(params))
+    ListHandler.delete_user(String.to_integer(params["id"]))
     response_user(socket)
   end
 

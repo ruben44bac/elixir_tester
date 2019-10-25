@@ -16,7 +16,7 @@
     <%= if !@delete_message do %>
         <div class="flex items-center  relative ">
              <%= if @agregar_usuarios_web do %>
-                <button phx-click="show_add" phx-value="true" class="hover:bg-gray-200 text-blue-400 font-medium py-2 px-4 rounded inline-flex items-center">
+                <button phx-click="show_add" phx-value-status="true" class="hover:bg-gray-200 text-blue-400 font-medium py-2 px-4 rounded inline-flex items-center">
                     <i class="material-icons fill-current mr-1">add</i>
                     <span>Agregar</span>
                 </button>
@@ -52,7 +52,7 @@
             </div>
             <div class="w-2/12" align="right">
                 <%= if @boton_quitar_usuario_lista do %>
-                    <button phx-click="delete_user" phx-value="<%= user.id %>" name="id" class="bg-transparent hover:bg-gray-200 text-gray-500 font-bold py-1 px-1 rounded-full inline-flex items-center">
+                    <button phx-click="delete_user" phx-value-id="<%= user.id %>" name="id" class="bg-transparent hover:bg-gray-200 text-gray-500 font-bold py-1 px-1 rounded-full inline-flex items-center">
                         <i class="material-icons fill-current">delete</i>
                     </button>
                 <% end %>
