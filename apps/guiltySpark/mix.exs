@@ -38,7 +38,11 @@ defmodule GuiltySpark.MixProject do
     [
       {:ecto_sql, "~> 3.1"},
       {:postgrex, ">= 0.0.0"},
-      {:jason, "~> 1.0"}
+      {:exconstructor, "~> 1.1.0"},
+      {:httpoison, "~> 1.0"},
+      {:poison, "~> 3.1"},
+      {:jason, "~> 1.0"},
+      {:exjsx, "~> 4.0.0"}
     ]
   end
 

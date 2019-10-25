@@ -4,6 +4,6 @@ defmodule GuiltySparkWeb.PageController do
   alias Phoenix.LiveView
 
   def index(conn, _params) do
-    LiveView.Controller.live_render(conn, GuiltySparkWeb.GithubDeployView, session: %{})
+    LiveView.Controller.live_render(conn, GuiltySparkWeb.PageLiveView, session: %{})
   end
 end

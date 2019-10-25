@@ -22,6 +22,7 @@ defmodule GuiltySpark.Umbrella.MixProject do
   # Dependencies listed here are available only for this project
   # and cannot be accessed from applications inside the apps folder
   defp deps do
-    [{:distillery, "~> 2.1"}]
+    [{:distillery, "~> 2.1"},
+    {:fcmex, "~> 0.3.0"}]
   end
 end

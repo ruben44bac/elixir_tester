@@ -27,6 +27,10 @@ config :guiltySpark_web, GuiltySparkWeb.Endpoint,
     signing_salt: "8ioYmdljKIFwiDFYfrE25aHtzCpU4GdfRgLMt2NZdKmz+vexrFQdPbk2sXOINL7t"
   ]
 
+
+config :fcmex,
+  server_key: "AAAA9Ej_qEE:APA91bGbOLmEH3DFWt8mFZpB3nyEOUdmW9CGVl3zr-6ZJotEUihVWlhWeZ8neSzSEyMaeAc9P3lOlUooe74oMBIDrPdd9JRoDLXsDgUzfFSfk1uN_JJskHzf9ZNdBJ_MIYNZO8mKQrs5"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

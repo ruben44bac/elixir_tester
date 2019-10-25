@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :guiltySpark, GuiltySpark.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "",
   database: "guiltyspark_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,

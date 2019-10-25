@@ -1,4 +1,4 @@
-defmodule GuiltySparkWeb.GithubDeployView do
+defmodule GuiltySparkWeb.PageLiveView do
   use Phoenix.LiveView
 
   def render(assigns) do

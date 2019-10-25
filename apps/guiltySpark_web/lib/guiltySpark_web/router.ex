@@ -21,8 +21,12 @@ defmodule GuiltySparkWeb.Router do
     get "/notification", NotificationController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", GuiltySparkWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", GuiltySparkWeb do
+    pipe_through :api
+
+    post "/token/add", TokenController, :add
+    get "/notification/check", NotificationController, :check
+    post "/notification/generic/new", NotificationController, :new_generic
+    post "/notification/specific/new", NotificationController, :new_specific
+  end
 end
