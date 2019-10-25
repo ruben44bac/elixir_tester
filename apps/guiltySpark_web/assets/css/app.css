@@ -1,3 +1,119 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
+@tailwind base;
+
+@tailwind components;
+
+/* Put your custom components here */
+
+@tailwind utilities;
+
+
+.style-scroll::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 0 rgb(170, 170, 170);
+	@apply bg-gray-100 rounded;
+}
+
+.style-scroll::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.style-scroll::-webkit-scrollbar-thumb
+{
+  -webkit-box-shadow: inset 0 0 1px rgb(170, 170, 170);
+  @apply bg-gray-400 rounded;
+}
+
+
+.animate{
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+}
+
+.menu-item{
+    @apply py-5 w-full border-l-4 border-white animate text-gray-500;
+}
+.menu-item:hover {
+    @apply border-blue-700 text-gray-900 bg-gray-100;
+}
+
+.stepper-item{
+    @apply flex w-full px-3 py-6 font-ubuntu border-l-8 border-transparent animate cursor-pointer;
+}
+.stepper-item:hover {
+    @apply border-blue-700 text-gray-900 bg-white shadow-md;
+}
+
+.bg-last-notification{
+    background:  linear-gradient(rgba(0, 0, 0, 0.11), rgb(255, 255, 255));
+}
+
+.tree_path {
+    @apply absolute;
+    margin-top: -1.2%;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.bg-notification-item{
+    background-color: rgba(0, 0, 0, 0.548);
+}
+
+.modern-checkbox label::before,
+.modern-checkbox label::after {
+  @apply absolute left-0 rounded-full border border-solid border-black cursor-pointer;
+  content: "";
+  transition: all 0.2s ease;
+}
+.modern-checkbox label::before {
+  @apply w-12 h-6 border border-solid border-gray-400 bg-gray-400;
+}
+.modern-checkbox label::after {
+  @apply w-6 h-6 bg-white border-0 top-0 left-0;
+}
+.modern-checkbox input:checked + label::after {
+  left: calc(111% - 20px);
+}
+.modern-checkbox input:checked + label::before {
+  @apply bg-blue-600 border-blue-600;
+}
+.modern-checkbox::after {
+  content: attr(data-label);
+  @apply pl-1 pt-1 flex;
+}
+
+.box
+{
+  margin: 0 auto;
+  padding: 2px;
+  background-color: #e61e1e; 
+  background-image: url('data:image/gif;base64,R0lGODlhAQABAPAAAOYeHv///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='),  
+                  url('data:image/gif;base64,R0lGODlhAQABAPAAAOYeHv///yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='),
+                  url('data:image/gif;base64,R0lGODlhAQABAPAAAP///////yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==');
+  background-repeat: no-repeat;
+  background-size: 0 2px, 0 100%, 0% 2px;
+  background-position: top center, top center, bottom center;
+  -webkit-animation: drawBorderFromCenter 4.7s;
+  animation: drawBorderFromCenter 4.7s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes drawBorderFromCenter {
+    0% {background-size: 0 2px, 0 0, 100% 100%;}
+    20% {background-size: 100% 2px, 100% 0, 100% 100%;}
+    66% {background-size: 100% 2px, 100% 98%, 100% 100%;}
+    99% {background-size: 100% 2px, 100% 98%, 0 2px;}
+}
+
+@keyframes drawBorderFromCenter {
+  0% {background-size: 0 2px, 0 0, 100% 100%;}
+  20% {background-size: 100% 2px, 100% 0, 100% 100%;}
+  66% {background-size: 100% 2px, 100% 98%, 100% 100%;}
+  99% {background-size: 100% 2px, 100% 98%, 0 2px;}
+}

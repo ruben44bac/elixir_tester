@@ -1,0 +1,56 @@
+
+<%= if valid_session @conn do %>
+<div class="bg-white w-16 h-screen fixed z-50 top-0 left-0 shadow-xl" id="main">
+
+
+    <button id="menu-item" class="menu-item" onclick="changeNav()">
+        <i id="menu-icon" class="material-icons pr-5 pl-4" >notes</i> 
+        <label class="hidden text-2xl">Menu</label>
+    </button>
+    <%= link to: Routes.page_path(@conn, :index), 
+    method: :get do %>
+    <button id="menu-item" class="menu-item mt-12">
+        <i class="material-icons pr-5 pl-4">home</i>
+        <label class="hidden text-2xl">Inicio</label>
+    </button>
+    <% end %>
+     <a href="/notification">
+        <button id="menu-item" class="menu-item">
+            <i class="material-icons pr-5 pl-4">notifications_none</i>
+            <label class="hidden text-2xl">Notificaciones</label>    
+        </button>
+    </a>
+    <a href="/list">
+        <button id="menu-item" class="menu-item">
+            <i class="material-icons pr-5 pl-4">person_outline</i>
+            <label class="hidden text-2xl">Listas</label>    
+        </button>
+    </a>
+</div>
+
+<script>
+var nav_status = false
+function changeNav() {
+    if(nav_status){
+        document.getElementById("mySidenav").style.marginLeft = "2.5%";
+        document.getElementById("main").style.width= "4rem";
+        var element = document.getElementsByClassName('menu-item');
+        for(var i = 0; i < element.length; i++){
+            element[i].style.textAlign = "center";
+            element[i].getElementsByTagName('label')[0].style.display = "none"
+        }
+        document.getElementById("menu-icon").innerHTML =  "notes"
+    } else {
+        document.getElementById("mySidenav").style.marginLeft = "10%";
+        document.getElementById("main").style.width = "250px";
+        document.getElementById("menu-icon").innerHTML =  "close"
+        var element = document.getElementsByClassName('menu-item');
+        for(var i = 0; i < element.length; i++){
+            element[i].style.textAlign = "left";
+            element[i].getElementsByTagName('label')[0].style.display = "inline"
+        }
+    }
+    nav_status = !nav_status
+}
+</script>
+<% end %>

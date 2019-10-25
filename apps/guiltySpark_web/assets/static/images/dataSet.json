@@ -1,0 +1,17 @@
+[{
+	"values":[
+	{
+		"ele":20,
+		"type":"Android"
+	},
+	{
+		"ele":40,
+		"type":"iOS"
+	},
+	{
+		"ele":80,
+		"type":"Web"
+	}],
+	"total": 150
+		
+}]
