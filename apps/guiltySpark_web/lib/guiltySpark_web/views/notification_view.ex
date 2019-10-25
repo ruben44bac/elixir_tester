@@ -1,8 +1,8 @@
-defmodule GuiltySparkWeb.GithubDeployView do
+defmodule GuiltySparkWeb.NotificationLiveView do
   use Phoenix.LiveView
 
   def render(assigns) do
-    GuiltySparkWeb.PageView.render("github_deploy.html", assigns)
+    GuiltySparkWeb.NotificationView.render("notification.html", assigns)
   end
 
   def mount(_session, socket) do
@@ -13,4 +13,9 @@ defmodule GuiltySparkWeb.GithubDeployView do
     # do the deploy process
     {:noreply, assign(socket, deploy_step: "Starting deploy...")}
   end
+end
+
+
+defmodule GuiltySparkWeb.NotificationView do
+  use GuiltySparkWeb, :view
 end
