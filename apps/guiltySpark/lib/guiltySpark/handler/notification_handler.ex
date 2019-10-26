@@ -39,6 +39,8 @@ defmodule GuiltySpark.NotificationHandler do
   def upload_image(command) do
     url = "https://api-test.santiago.mx/json/reply/NotificacionImagenRequest"
     body = Poison.encode!(%{"base64" => command.image_path})
+    tester = HTTPoison.post(url, body, %{"Content-Type" => "application/json"})
+    IO.inspect(tester, label: "TESTERRRRRRRRRRRRRRRRRRRRRRRRRRRR ========= >>>>>    ")
     {:ok, response} = HTTPoison.post(url, body, %{"Content-Type" => "application/json"})
     req = Poison.decode!(response.body)
     command

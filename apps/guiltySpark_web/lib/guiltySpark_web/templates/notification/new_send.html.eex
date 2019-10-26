@@ -52,7 +52,7 @@
     </div>
 
     <div class="absolute rounded-xl bottom-0 left-0 p-3 w-full bg-white">
-        <button phx-click="send"  phx-value="4" class="bg-teal-500 hover:bg-teal-400 text-white font-medium py-2 px-4 rounded inline-flex items-center">
+        <button phx-click="send"  phx-value-step="4" class="bg-teal-500 hover:bg-teal-400 text-white font-medium py-2 px-4 rounded inline-flex items-center">
             <i class="material-icons md-18 fill-current mr-1">send</i>
             <span>Iniciar envio</span>
         </button>

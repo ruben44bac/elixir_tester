@@ -36,7 +36,7 @@
         <div class="flex w-full p-5 border-b-2 border-gray-300 relative">
             <div class="w-10/12 text-gray-900">
                 <div class="inline relative"><%= user.name %>
-                    <label class="absolute left-0 mt-4 font-display text-sm text-gray-600"><%= user.email %></label>
+                    <label class="absolute left-0 mt-5 font-display text-xs text-gray-600"><%= user.email %></label>
                 </div>
                 <div class="inline ml-2">
                     <%= if user.web > 0 do %>

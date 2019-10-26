@@ -8,12 +8,10 @@ defmodule GuiltySparkWeb.PageLiveView do
   }
 
   def render(assigns) do
-    IO.inspect(assigns, label: "SOCKE    SOCKE    SOCKE    SOCKE    SOCKE    SOCKE    SOCKE    ")
     render_index(assigns)
   end
 
   def mount(session, socket) do
-    IO.inspect(session, label: "SESSSSSSSSION ========>>> ")
     {:ok, assign(socket, session)}
   end
 

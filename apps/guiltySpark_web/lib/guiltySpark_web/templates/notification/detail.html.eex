@@ -97,9 +97,10 @@
         charts_detail_init();
         function load(){
             setTimeout(function(){ 
-                console.log("EN EL LOAD");
-                test = document.getElementById("change-detail")
-                test.onclick.apply(test)
+                
+                button = document.getElementById("change-detail")
+                if(button != null)
+                    button.onclick.apply(button)
             }, 500);
         }
         function charts_detail_init(){

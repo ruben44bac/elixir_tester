@@ -75,7 +75,7 @@ defmodule GuiltySparkWeb.NotificationLiveView do
       show_new: true,
       show_detail: false,
       new_conf: %{
-        step: NotificationHandler.form_validate(String.to_integer(params), socket.assigns.new_conf.form),
+        step: NotificationHandler.form_validate(String.to_integer(params["step"]), socket.assigns.new_conf.form),
         form: socket.assigns.new_conf.form,
         app_view: socket.assigns.new_conf.app_view,
         params: socket.assigns.new_conf.params
