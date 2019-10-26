@@ -7,7 +7,7 @@ FROM elixir:1.9.1 as builder
 ENV MIX_ENV=prod
 
 RUN apt install curl \
-  && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+  && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && apt-get install -y nodejs \
   && apt-get install -y npm
 
