@@ -22,7 +22,7 @@
                 </button>
             <% end %>
             <%= if @boton_eliminar do %>
-                <button phx-click="delete _list" class="hover:bg-gray-200 text-blue-400 font-medium py-2 px-4 rounded inline-flex items-center">
+                <button phx-click="delete_list" class="hover:bg-gray-200 text-blue-400 font-medium py-2 px-4 rounded inline-flex items-center">
                     <i class="material-icons fill-current mr-1">delete</i>
                     <span>Borrar lista</span>
                 </button>

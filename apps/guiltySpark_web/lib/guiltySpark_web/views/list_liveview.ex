@@ -96,10 +96,10 @@ defmodule GuiltySparkWeb.ListLiveView do
     end
   end
 
-  def handle_event("delete _list", _params, socket) do
+  def handle_event("delete_list", _params, socket) do
     if connected?(socket) do
       undo_seconds = Application.get_env(:guiltySpark_web, GuiltySparkWeb.Endpoint)[:undo_seconds]
-      test = :timer.send_interval(1000, self(), :tick)
+      test = :timer.send_interval(3500, self(), :tick)
       {:ok, timer} = test
       {:noreply,
        assign(socket,
