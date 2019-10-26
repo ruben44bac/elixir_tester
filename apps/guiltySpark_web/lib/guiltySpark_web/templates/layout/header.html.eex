@@ -5,7 +5,8 @@
         <img src="/images/logo.png" class="w-1/6">
     </div>
     <div class="w-2/12 flex text-right" align="rigth">
-        <label class="text-white text-xs w-4/6"><%= user_email @conn %> <br><label class="text-gray-100 font-display">Administrador</label></label>
+        <label class="text-white text-xs w-4/6"><%= user_email @conn %> 
+        <br><label class="text-gray-100 font-display"><%= user_role @conn %> </label></label>
         <div class="w-2/6 pl-2" align="left">
             <img class="w-10 h-10 rounded-full mr-4 inline" src="/images/user.png" alt="Avatar">
         </div>
