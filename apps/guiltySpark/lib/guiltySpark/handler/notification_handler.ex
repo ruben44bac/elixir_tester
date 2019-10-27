@@ -39,8 +39,6 @@ defmodule GuiltySpark.NotificationHandler do
   def upload_image(command) do
     url = "https://api-test.santiago.mx/json/reply/NotificacionImagenRequest"
     body = Poison.encode!(%{"base64" => command.image_path})
-    tester = HTTPoison.post(url, body, %{"Content-Type" => "application/json"})
-    IO.inspect(tester, label: "TESTERRRRRRRRRRRRRRRRRRRRRRRRRRRR ========= >>>>>    ")
     {:ok, response} = HTTPoison.post(url, body, %{"Content-Type" => "application/json"})
     req = Poison.decode!(response.body)
     command
@@ -74,9 +72,19 @@ defmodule GuiltySpark.NotificationHandler do
     notif = struct_notification_request(merge)
     dat = struct_data_request(merge)
     to = head.token
-    Fcmex.push(to,
+    body = Poison.encode!(%{"to" => to,
       notification: notif,
-      data: dat )
+      data: dat
+      })
+
+    HTTPoison.post("https://fcm.googleapis.com/fcm/send",
+      body,
+      %{"Content-Type" => "application/json",
+        "Authorization" => "key=AAAA9Ej_qEE:APA91bGbOLmEH3DFWt8mFZpB3nyEOUdmW9CGVl3zr-6ZJotEUihVWlhWeZ8neSzSEyMaeAc9P3lOlUooe74oMBIDrPdd9JRoDLXsDgUzfFSfk1uN_JJskHzf9ZNdBJ_MIYNZO8mKQrs5"}
+    )
+    # Fcmex.push(to,
+    #   notification: notif,
+    #   data: dat )
     insert_one_token_send(merge.id, head.token, head.channel_id, head.type, head.user_id)
     send_specific_token(tail, command, attrs)
   end
@@ -87,9 +95,20 @@ defmodule GuiltySpark.NotificationHandler do
     notif = struct_notification_request(command)
     dat = struct_data_request(command)
     to = "/topics/#{topic}"
-    Fcmex.push(to,
+    body = Poison.encode!(%{"to" => to,
       notification: notif,
-      data: dat )
+      data: dat
+      })
+
+    HTTPoison.post("https://fcm.googleapis.com/fcm/send",
+      body,
+      %{"Content-Type" => "application/json",
+        "Authorization" => "key=AAAA9Ej_qEE:APA91bGbOLmEH3DFWt8mFZpB3nyEOUdmW9CGVl3zr-6ZJotEUihVWlhWeZ8neSzSEyMaeAc9P3lOlUooe74oMBIDrPdd9JRoDLXsDgUzfFSfk1uN_JJskHzf9ZNdBJ_MIYNZO8mKQrs5"}
+    )
+    #IO.inspect(test, label: "JAJAJAJAJAJAJA =======>> ")
+    # Fcmex.push(to,
+    #   notification: notif,
+    #   data: dat )
     command
       |> Map.put(:json, struct_json_notification(notif, dat, to))
   end
