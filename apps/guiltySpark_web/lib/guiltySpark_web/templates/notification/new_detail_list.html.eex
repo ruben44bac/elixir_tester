@@ -14,7 +14,7 @@
                         <label class="relative inline bg-transparent w-10" for="checkbox-<%= list.id %>"></label>
                     </div>
                 </form> -->
-                <button phx-click="add_list" phx-value="<%= list.id %>" name="id" 
+                <button phx-click="add_list" phx-value-id="<%= list.id %>" name="id" 
                         class="bg-transparent hover:bg-red-200 text-red-500
                         <%= if list.status, do: "hover:bg-blue-200 text-blue-500" %> 
                         text-sm py-1 px-3 rounded-lg inline-flex items-center">

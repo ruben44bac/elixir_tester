@@ -138,7 +138,7 @@ defmodule GuiltySparkWeb.NotificationLiveView do
   end
 
   def handle_event("add_list", params, socket) do
-    id = String.to_integer(params)
+    id = String.to_integer(params["id"])
     list = id
       |> ListHandler.get_list_name
       |> ListHandler.concat_list(socket.assigns.new_conf.form.app_view.list_selected)

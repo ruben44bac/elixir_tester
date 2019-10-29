@@ -17,7 +17,7 @@
         <% end %>
     </div>
 
-    <div phx-value="3" class="stepper-item">
+    <div phx-value-step="3" class="stepper-item">
         <div class="w-10/12 text-lg text-gray-800">3- Verificación y envio</div>
         <%= if @new_conf.step > 3 do %>
             <div class="w-2/12 px-5">
