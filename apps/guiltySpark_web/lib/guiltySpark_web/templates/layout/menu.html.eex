@@ -5,7 +5,7 @@
 
     <button id="menu-item" class="menu-item" onclick="changeNav()">
         <i id="menu-icon" class="material-icons pr-5 pl-4" >notes</i> 
-        <label class="hidden text-2xl">Menu</label>
+        <label class="hidden text-2xl">Menú</label>
     </button>
     <%= link to: Routes.page_path(@conn, :index), 
     method: :get do %>

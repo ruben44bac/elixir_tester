@@ -1,6 +1,6 @@
  <div class="w-3/12 p-2 border-r-2 border-gray-300 min-h-screen" >
-    <div phx-click="new_next" phx-value="1" class="stepper-item">
-        <div class="w-10/12 text-lg text-gray-800">Detalles de notificación</div>
+    <div phx-click="new_next" phx-value-step="1" class="stepper-item">
+        <div class="w-10/12 text-lg text-gray-800">1- Detalles de notificación</div>
         <%= if @new_conf.step > 1 do %>
             <div class="w-2/12 px-5">
                 <div class="h-8 w-8 bg-blue-600 rounded-full text-white p-1"><i class="material-icons">check</i></div>
@@ -8,8 +8,8 @@
         <% end %>
     </div>
 
-    <div phx-click="new_next" phx-value="2" class="stepper-item">
-        <div class="w-10/12 text-lg text-gray-800">Rutas de destino</div>
+    <div phx-click="new_next" phx-value-step="2" class="stepper-item">
+        <div class="w-10/12 text-lg text-gray-800">2- Rutas de destino</div>
         <%= if @new_conf.step > 2 do %>
             <div class="w-2/12 px-5">
                 <div class="h-8 w-8 bg-blue-600 rounded-full text-white p-1"><i class="material-icons">check</i></div>
@@ -18,7 +18,7 @@
     </div>
 
     <div phx-value="3" class="stepper-item">
-        <div class="w-10/12 text-lg text-gray-800">Verificación y envio</div>
+        <div class="w-10/12 text-lg text-gray-800">3- Verificación y envio</div>
         <%= if @new_conf.step > 3 do %>
             <div class="w-2/12 px-5">
                 <div class="h-8 w-8 bg-blue-600 rounded-full text-white p-1"><i class="material-icons">check</i></div>
