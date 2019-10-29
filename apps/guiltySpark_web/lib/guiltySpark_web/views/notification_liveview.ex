@@ -30,10 +30,13 @@ defmodule GuiltySparkWeb.NotificationLiveView do
 
   def handle_event("paginator_list", _params, socket) do
     index = socket.assigns.notification_index + 1
+    list = Enum.concat(socket.assigns.notifications,
+      NotificationHandler.list(index * 10, socket.assigns.search))
+
     {:noreply, assign(socket,
       show_new: false,
       show_detail: true,
-      notifications: Enum.concat(socket.assigns.notifications, NotificationHandler.list(index * 10)),
+      notifications: list,
       notifications_total: socket.assigns.notifications_total,
       notification_index: index,
       notification_detail: socket.assigns.notification_detail
@@ -164,6 +167,15 @@ defmodule GuiltySparkWeb.NotificationLiveView do
     {:noreply, init_notification(socket)}
   end
 
+  def handle_event("tester", params, socket) do
+    IO.inspect(params["value"], label: "PARAMS DEL KEYUP --------->  ")
+    list = NotificationHandler.list(0, %{search: params["value"]})
+    IO.inspect(list, label: "LIST  LIST  LIST  LIST  LIST  --------->  ")
+    {:noreply, assign(socket,
+    search: %{search: params["value"]},
+    notifications: list
+    )}
+  end
 
   def handle_info(%{topic: @topic_check, payload: payload}, socket) do
     {intVal, ""} = Integer.parse(payload.id)
@@ -181,14 +193,15 @@ defmodule GuiltySparkWeb.NotificationLiveView do
   end
 
   def init_notification(socket) do
-    list = NotificationHandler.list(0)
+    list = NotificationHandler.list(0, nil)
     assign(socket,
       show_new: false,
       show_detail: true,
       notifications: list,
       notifications_total: NotificationHandler.total(),
       notification_index: 0,
-      notification_detail: NotificationDetailHandler.detail(Enum.at(list, 0))
+      notification_detail: NotificationDetailHandler.detail(Enum.at(list, 0)),
+      search: nil
     )
   end
 

@@ -18,6 +18,21 @@ defmodule GuiltySpark.NotificationQuery do
     offset: ^index
   end
 
+  def list_notifications(index, size, search) do
+    from n in NotificationSchema,
+    select: %{
+      id: n.id,
+      title: n.title,
+      description: n.description,
+      image_path: n.image_path,
+      date: n.inserted_at
+    },
+    where: like(n.title, ^search),
+    order_by: [desc: n.id],
+    limit: ^size,
+    offset: ^index
+  end
+
   def total_notifications() do
     from n in NotificationSchema,
     select: %{

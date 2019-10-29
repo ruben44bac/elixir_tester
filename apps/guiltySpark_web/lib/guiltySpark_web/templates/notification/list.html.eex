@@ -1,5 +1,6 @@
 
-    <input class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mb-5 block w-full appearance-none leading-normal" type="email" placeholder="Buscador...">
+    <input class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mb-5 block w-full appearance-none leading-normal" 
+        type="text" placeholder="Buscador..." phx-keyup="tester">
 
     <div class="overflow-y-scroll style-scroll" style="height:65vh;" >
         <%= for notifications <- @notifications do %>

@@ -2,7 +2,7 @@
 
 <div class="w-3/12 p-2 min-h-screen" >
 
-    <input class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mb-5 block w-full appearance-none leading-normal" type="email" placeholder="Buscador...">
+    <%# <input class="bg-white focus:outline-0 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mb-5 block w-full appearance-none leading-normal" type="email" placeholder="Buscador..."> %>
 
     <div class="h-screen overflow-y-scroll style-scroll">
         <%= for list <- @detail.left_list do %>

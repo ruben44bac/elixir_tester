@@ -195,7 +195,14 @@ defmodule GuiltySpark.NotificationHandler do
 
   # live
 
-  def list(index) do
+  def list(index, %{search: search}) do
+    sear = search
+      |> String.replace(" ", "%")
+    NotificationQuery.list_notifications(index, 10, "%" <> sear <> "%")
+      |> Repo.all()
+  end
+
+  def list(index, _search) do
     NotificationQuery.list_notifications(index, 10)
       |> Repo.all()
   end
