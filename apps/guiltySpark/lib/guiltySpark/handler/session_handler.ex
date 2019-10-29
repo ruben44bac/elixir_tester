@@ -4,7 +4,8 @@ defmodule GuiltySpark.PermissionHandler do
   @fluffy_ip "172.19.1.1"
   def validate_fluffy(params, conn) do
 
-    case params == %{} do
+    keys = Map.keys(params)
+    case keys != ["uid", "rid", "token"] do
        true -> Plug.Conn.get_session(conn, :token)
        |> validate_fluffy
        false -> validate_fluffy(params)
@@ -57,7 +58,8 @@ defmodule GuiltySpark.PermissionHandler do
 
 
   def get_user_names(params, conn, _attrs) do
-    case params == %{} do
+    keys = Map.keys(params)
+    case keys != ["uid", "rid", "token"] do
         true -> Plug.Conn.get_session(conn, :user_id)
             |> get_user_names(Plug.Conn.get_session(conn, :role_id))
         false -> get_user_names(params)

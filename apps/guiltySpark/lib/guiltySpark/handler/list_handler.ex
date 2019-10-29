@@ -50,8 +50,9 @@ defmodule GuiltySpark.ListHandler do
       |> Repo.insert
   end
 
-  def delete_user(user_id) do
-    Repo.get(ListUserSchema, user_id)
+  def delete_user(id, user_id, list_id) do
+    TokenHandler.delete_token_list_topic(user_id, get(list_id).name)
+    Repo.get(ListUserSchema, id)
     |> Repo.delete
   end
 

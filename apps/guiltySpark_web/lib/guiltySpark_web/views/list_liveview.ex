@@ -66,7 +66,7 @@ defmodule GuiltySparkWeb.ListLiveView do
   end
 
   def handle_event("delete_user", params, socket) do
-    ListHandler.delete_user(String.to_integer(params["id"]))
+    ListHandler.delete_user(String.to_integer(params["id"]), String.to_integer(params["userid"]), socket.assigns.detail.id)
     response_user(socket)
   end
 

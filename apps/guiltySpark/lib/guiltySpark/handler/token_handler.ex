@@ -80,22 +80,59 @@ defmodule GuiltySpark.TokenHandler do
 	end
 
 	def add_token_topic(token) do
-		Fcmex.Subscription.subscribe("general", token)
+
+		to = "/topics/general"
+		body = Poison.encode!(%{"to" => to,
+			registration_tokens: [token]
+      })
+		HTTPoison.post("https://iid.googleapis.com/iid/v1:batchAdd",
+      body,
+      %{"Content-Type" => "application/json",
+        "Authorization" => "key=AAAA9Ej_qEE:APA91bGbOLmEH3DFWt8mFZpB3nyEOUdmW9CGVl3zr-6ZJotEUihVWlhWeZ8neSzSEyMaeAc9P3lOlUooe74oMBIDrPdd9JRoDLXsDgUzfFSfk1uN_JJskHzf9ZNdBJ_MIYNZO8mKQrs5"}
+		)
+		#Fcmex.Subscription.subscribe("general", token)
 	end
 
 	def delete_token_topic(token) do
-		Fcmex.Subscription.unsubscribe("general", token)
+		to = "/topics/general"
+		body = Poison.encode!(%{"to" => to,
+			registration_tokens: [token]
+      })
+		HTTPoison.post("https://iid.googleapis.com/iid/v1:batchRemove",
+      body,
+      %{"Content-Type" => "application/json",
+        "Authorization" => "key=AAAA9Ej_qEE:APA91bGbOLmEH3DFWt8mFZpB3nyEOUdmW9CGVl3zr-6ZJotEUihVWlhWeZ8neSzSEyMaeAc9P3lOlUooe74oMBIDrPdd9JRoDLXsDgUzfFSfk1uN_JJskHzf9ZNdBJ_MIYNZO8mKQrs5"}
+		)
+		#Fcmex.Subscription.unsubscribe("general", token)
 	end
 
 	def add_token_list_topic(user_id, list_name) do
 		resp = get_token_by_user(user_id)
 		Task.async(fn ->
-			Fcmex.Subscription.subscribe(list_name, resp)
+			to = "/topics/#{list_name}"
+			body = Poison.encode!(%{"to" => to,
+				registration_tokens: resp
+				})
+			HTTPoison.post("https://iid.googleapis.com/iid/v1:batchAdd",
+				body,
+				%{"Content-Type" => "application/json",
+					"Authorization" => "key=AAAA9Ej_qEE:APA91bGbOLmEH3DFWt8mFZpB3nyEOUdmW9CGVl3zr-6ZJotEUihVWlhWeZ8neSzSEyMaeAc9P3lOlUooe74oMBIDrPdd9JRoDLXsDgUzfFSfk1uN_JJskHzf9ZNdBJ_MIYNZO8mKQrs5"}
+			)
+			#Fcmex.Subscription.subscribe(list_name, resp)
 		end)
 	end
 
-	def delete_token_list_topic(token, list_name) do
-		Fcmex.Subscription.unsubscribe(list_name, token)
+	def delete_token_list_topic(user_id, list_name) do
+		resp = get_token_by_user(user_id)
+		to = "/topics/#{list_name}"
+			body = Poison.encode!(%{"to" => to,
+				registration_tokens: resp
+				})
+			HTTPoison.post("https://iid.googleapis.com/iid/v1:batchRemove",
+				body,
+				%{"Content-Type" => "application/json",
+					"Authorization" => "key=AAAA9Ej_qEE:APA91bGbOLmEH3DFWt8mFZpB3nyEOUdmW9CGVl3zr-6ZJotEUihVWlhWeZ8neSzSEyMaeAc9P3lOlUooe74oMBIDrPdd9JRoDLXsDgUzfFSfk1uN_JJskHzf9ZNdBJ_MIYNZO8mKQrs5"}
+			)
 	end
 
 	def get_token_by_user(user_id) do
