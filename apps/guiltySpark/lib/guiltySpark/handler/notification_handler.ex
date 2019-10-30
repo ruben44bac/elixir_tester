@@ -99,7 +99,6 @@ defmodule GuiltySpark.NotificationHandler do
       notification: notif,
       data: dat
       })
-
     HTTPoison.post("https://fcm.googleapis.com/fcm/send",
       body,
       %{"Content-Type" => "application/json",
@@ -155,7 +154,7 @@ defmodule GuiltySpark.NotificationHandler do
   def insert_token_send(attrs, topic) do
     list = case topic do
       "general" -> insert_general_topic(attrs)
-      _ -> insert_topic(attrs)
+      _ -> insert_topic(attrs, topic)
     end
     NotificationTokenSchema
       |> Repo.insert_all(list)
@@ -166,8 +165,8 @@ defmodule GuiltySpark.NotificationHandler do
       |> Repo.all
   end
 
-  def insert_topic(attrs) do
-    NotificationTokenQuery.generic_notification_token(attrs.id)
+  def insert_topic(attrs, topic) do
+    NotificationTokenQuery.topic_notification_token(attrs.id, topic)
       |> Repo.all
   end
 
@@ -252,7 +251,8 @@ defmodule GuiltySpark.NotificationHandler do
     if Enum.count(socket.assigns.new_conf.form.app_view.list_selected) > 1 do
       ListHandler.tokens_distinct_between_list(socket.assigns.new_conf.form.app_view.list_selected, "", req)
     else
-      send_generic(req, List.first(socket.assigns.new_conf.form.app_view.list_selected))
+      topic = List.first(socket.assigns.new_conf.form.app_view.list_selected)
+      send_generic(req, topic)
     end
   end
 
@@ -271,7 +271,7 @@ defmodule GuiltySpark.NotificationHandler do
         title: form.title,
         description: form.description,
       })
-    case resp.valid? do
+    case resp.valid? && (form.type != 2 || (form.type == 2 && form.app_view.list_selected != [])) do
       true -> step
       _ -> 1
     end

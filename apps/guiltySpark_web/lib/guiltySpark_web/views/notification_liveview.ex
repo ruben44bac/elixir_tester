@@ -88,7 +88,7 @@ defmodule GuiltySparkWeb.NotificationLiveView do
 
   def handle_event("show_detail_list", params, socket) do
     list = ListHandler.list(0)
-      |> ListHandler.add_status
+      |> ListHandler.add_status(socket.assigns.new_conf.form.app_view.list_selected)
     set_app_view(
       params["title"],
       params["description"],

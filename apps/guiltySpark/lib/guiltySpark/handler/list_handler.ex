@@ -68,10 +68,10 @@ defmodule GuiltySpark.ListHandler do
     end)
   end
 
-  def add_status(list) do
+  def add_status(list, list_s) do
     Enum.map(list, fn (map) ->
         map
-          |> Map.put(:status, true)
+        |> Map.put(:status, !Enum.member?(list_s, map.name))
     end)
   end
 
