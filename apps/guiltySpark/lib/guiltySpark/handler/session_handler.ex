@@ -1,7 +1,7 @@
 defmodule GuiltySpark.PermissionHandler do
 
-  #@fluffy_ip "10.0.3.120"
-  @fluffy_ip "172.19.1.1"
+  @fluffy_ip "10.0.3.120"
+  #@fluffy_ip "172.19.1.1"
   def validate_fluffy(params, conn) do
 
     keys = Map.keys(params)

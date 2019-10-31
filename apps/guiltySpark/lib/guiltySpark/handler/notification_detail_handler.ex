@@ -9,6 +9,28 @@ defmodule GuiltySpark.NotificationDetailHandler do
     AppViewQuery
   }
 
+  def detail() do
+    %{
+      id: "",
+      image: "",
+      title: "",
+      description: "",
+      date: "",
+      receiver_total: "",
+      receiver_web: "",
+      receiver_ios: "",
+      receiver_android: "",
+      interaction_true: "",
+      interaction_false: "",
+      receiver_interaction_web: "",
+      receiver_interaction_ios: "",
+      receiver_interaction_android: "",
+      receiver_user: "",
+      receiver_guess: "",
+      receiver_x: "",
+    }
+  end
+
   def detail(notifiation) do
     %{
       id: notifiation.id,

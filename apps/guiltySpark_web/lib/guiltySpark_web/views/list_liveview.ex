@@ -139,6 +139,15 @@ defmodule GuiltySparkWeb.ListLiveView do
 
   def init_list(socket) do
     list = ListHandler.list(0)
+    detail = case list == [] do
+      true -> %{name: "", id: 0, list: [], show_add: false}
+      false -> %{
+        name: Enum.at(list, 0).name,
+        id: Enum.at(list, 0).id,
+        list: ListHandler.users_for_list(Enum.at(list, 0).id),
+        show_add: false
+      }
+    end
     assign(socket,
       show_new: false,
       show_detail: true,
@@ -146,12 +155,7 @@ defmodule GuiltySparkWeb.ListLiveView do
       counter: 0,
       timer: nil,
       list: list,
-      detail: %{
-        name: Enum.at(list, 0).name,
-        id: Enum.at(list, 0).id,
-        list: ListHandler.users_for_list(Enum.at(list, 0).id),
-        show_add: false
-      },
+      detail: detail,
       list_total: ListHandler.total(),
       list_index: 0
     )

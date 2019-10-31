@@ -194,13 +194,17 @@ defmodule GuiltySparkWeb.NotificationLiveView do
 
   def init_notification(socket) do
     list = NotificationHandler.list(0, nil)
+    detail = case list == [] do
+      true -> NotificationDetailHandler.detail
+      false -> NotificationDetailHandler.detail(Enum.at(list, 0))
+    end
     assign(socket,
       show_new: false,
       show_detail: true,
       notifications: list,
       notifications_total: NotificationHandler.total(),
       notification_index: 0,
-      notification_detail: NotificationDetailHandler.detail(Enum.at(list, 0)),
+      notification_detail: detail,
       search: nil
     )
   end

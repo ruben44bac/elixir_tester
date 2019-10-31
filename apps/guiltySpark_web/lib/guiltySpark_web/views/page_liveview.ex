@@ -30,9 +30,12 @@ defmodule GuiltySparkWeb.PageLiveView do
 
   defp last_notification() do
     last = NotificationDetailHandler.last_notification()
-    NotificationDetailHandler.detail(
-      last
-        |> Map.put(:date, last.updated_at)
-      )
+    case is_nil(last) do
+      true -> NotificationDetailHandler.detail()
+      false -> NotificationDetailHandler.detail(
+        last
+          |> Map.put(:date, last.updated_at)
+        )
+    end
   end
 end
