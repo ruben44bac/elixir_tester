@@ -184,7 +184,8 @@ defmodule GuiltySpark.NotificationHandler do
   def check(attrs) do
     resp = NotificationTokenQuery.token_notification(attrs.id, attrs.token)
       |> Repo.one
-    if(resp != nil) do
+    IO.inspect(resp, label: "RESPPPPP =======================>    ")
+    if !is_nil(resp) do
       resp
         |> NotificationTokenSchema.changeset(%{notification_token_status_id: 2})
         |> Repo.update
